@@ -7,7 +7,6 @@ from .jobs import Jobs
 class Batch(Resource):
     def __init__(self):
         self.jobs = Jobs()
-    pass
 
 
 class Batches(ListResource):
@@ -16,10 +15,3 @@ class Batches(ListResource):
     @property
     def url(self):
         return '/'.join((self.client.api_root, 'job_batches'))
-
-    def create(self, **kwargs):
-        self.client._post(self.url, data=kwargs)
-
-    def list(self):
-        response = self.client._get(self.url)
-        return response
