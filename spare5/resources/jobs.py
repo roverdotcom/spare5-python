@@ -10,24 +10,19 @@ class Job(Resource):
 
     JOB_TYPES = (STAR_RATING,)
 
-    def __init__(self, client, job_id, jobs):
-        super(Job, self).__init__(client)
-        self.job_id = job_id
-        self.jobs = jobs
-        self.responses = Responses(client, self)
-
-    @property
-    def url(self):
-        return '{}/{}'.format(self.jobs.url, self.job_id)
-
     def update(self, **kwargs):
         raise MethodNotAllowedException()
+
+    @property
+    def responses(self):
+        return Responses(self.client, self)
 
 
 class Jobs(ListResource):
     REQUIRED_PARAMS = ('num_responders',)
+    _resource_class = Job
 
-    def __init__(self, client, batch):
+    def __init__(self, client, batch, result=None):
         super(Jobs, self).__init__(client)
         self.batch = batch
 
