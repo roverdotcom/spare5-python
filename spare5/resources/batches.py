@@ -3,6 +3,7 @@ from .base import ListResource
 from .base import MethodNotAllowedException
 
 from .jobs import Jobs
+from .responses import BatchResponses
 
 
 class Batch(Resource):
@@ -10,6 +11,10 @@ class Batch(Resource):
     @property
     def jobs(self):
         return Jobs(self.client, self)
+
+    @property
+    def responses(self):
+        return BatchResponses(self.client, self)
 
     def update(self, **kwargs):
         raise MethodNotAllowedException()
