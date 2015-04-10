@@ -1,6 +1,8 @@
 from .base import Resource
 from .base import ListResource
 
+from .responses import Responses
+
 
 class Job(Resource):
     STAR_RATING = 'STARRATING'
@@ -11,6 +13,7 @@ class Job(Resource):
         super(Job, self).__init__(client)
         self.job_id = job_id
         self.jobs = jobs
+        self.responses = Responses(client, self)
 
     @property
     def url(self):

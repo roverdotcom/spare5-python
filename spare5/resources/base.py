@@ -5,6 +5,9 @@ class Resource(object):
     def get(self):
         return self.client._get(self.url)['result']
 
+    def update(self, **kwargs):
+        return self.client._put(self.url, data=kwargs)
+
 
 class ListResource(object):
     def __init__(self, client):
