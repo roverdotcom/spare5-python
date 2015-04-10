@@ -22,3 +22,7 @@ class ListResource(object):
     def list(self):
         response = self.client._get(self.url)['result']
         return response
+
+
+class MethodNotAllowedException(StandardError):
+    pass

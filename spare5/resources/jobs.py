@@ -1,5 +1,6 @@
 from .base import Resource
 from .base import ListResource
+from .base import MethodNotAllowedException
 
 from .responses import Responses
 
@@ -18,6 +19,9 @@ class Job(Resource):
     @property
     def url(self):
         return '{}/{}'.format(self.jobs.url, self.job_id)
+
+    def update(self, **kwargs):
+        raise MethodNotAllowedException()
 
 
 class Jobs(ListResource):

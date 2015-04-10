@@ -1,5 +1,6 @@
 from .base import Resource
 from .base import ListResource
+from .base import MethodNotAllowedException
 
 from .jobs import Jobs
 
@@ -15,6 +16,9 @@ class Batch(Resource):
     @property
     def url(self):
         return '{}/{}'.format(self.batches.url, self.batch_id)
+
+    def update(self, **kwargs):
+        raise MethodNotAllowedException()
 
 
 class Batches(ListResource):
