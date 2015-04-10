@@ -15,7 +15,6 @@ class Spare5Client(object):
         self.token = token
 
         self.batches = Batches(self)
-        self.jobs = Jobs(self)
 
     def _make_request(self, verb, *args, **kwargs):
         kwargs.update({

@@ -2,6 +2,9 @@ class Resource(object):
     def __init__(self, client):
         self.client = client
 
+    def get(self):
+        return self.client._get(self.url)['result']
+
 
 class ListResource(object):
     def __init__(self, client):
