@@ -20,17 +20,17 @@ class Spare5Client(object):
         kwargs.update({
             'auth': (self.username, self.token)
         })
-        response = getattr(requests, verb)(*args, **kwargs)
+        response = requests.request(verb, *args, **kwargs)
         return response.json()
 
-    def _get(self, url):
-        return self._make_request('get', url)
+    def _get(self, url, **kwargs):
+        return self._make_request('get', url, **kwargs)
 
-    def _post(self, url, data):
-        return self._make_request('post', url, data=data)
+    def _post(self, url, data, **kwargs):
+        return self._make_request('post', url, data=data, **kwargs)
 
-    def _put(self, url, data):
-        return self._make_request('put', url, data=data)
+    def _put(self, url, data, **kwargs):
+        return self._make_request('put', url, data=data, **kwargs)
 
-    def _delete(self, url):
-        return self._make_request('delete', url)
+    def _delete(self, url, **kwargs):
+        return self._make_request('delete', url, **kwargs)

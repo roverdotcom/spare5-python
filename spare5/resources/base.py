@@ -1,5 +1,8 @@
 class Resource(object):
     _result = None
+    client = None
+    resource_id = None
+    list_resource = None
 
     def __init__(
             self, client, resource_id=None, list_resource=None, result=None):
@@ -40,8 +43,10 @@ class ListResource(object):
             yield self._resource_class(
                 self.client, list_resource=self, result=result)
 
-    def create(self, **kwargs):
-        return self.client._post(self.url, data=kwargs)
+    def create(self, headers=None, data=None, **kwargs):
+        if data is None:
+            data = kwargs
+        return self.client._post(self.url, headers=headers, data=data, **kwargs)
 
     def list(self, force_refresh=False):
         if self._result is None or force_refresh:

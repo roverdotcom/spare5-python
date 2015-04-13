@@ -1,3 +1,4 @@
+import json
 from .base import Resource
 from .base import ListResource
 from .base import MethodNotAllowedException
@@ -32,3 +33,14 @@ class Jobs(ListResource):
 
     def job(self, job_id):
         return Job(self.client, job_id, self)
+
+    def create(self, num_responders, questions, **kwargs):
+        data = {
+            'num_responders': num_responders,
+            'questions': questions,
+        }
+        data.update(kwargs)
+        return super(Jobs, self).create(
+            data=json.dumps(data),
+            headers={'Content-Type': 'application/json'},
+        )
