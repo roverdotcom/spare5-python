@@ -35,7 +35,7 @@ class ListResource(object):
 
     def __iter__(self):
         if not hasattr(self, '_resource_class'):
-            raise NotImplementedError
+            raise NotImplementedError()
 
         if self._result is None:
             self.list()
