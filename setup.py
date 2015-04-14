@@ -1,4 +1,5 @@
 from setuptools import setup
+from setuptools import find_packages
 
 
 setup(
@@ -8,7 +9,7 @@ setup(
     license="MIT",
     author="John Williams, Philip Kimmey",
     author_email="john@rover.com, philip@rover.com",
-    packages=['spare5'],
+    packages=find_packages(),
     keywords=['spare5'],
     install_requires=[],
     classifiers=[
