@@ -1,18 +1,46 @@
+import json
+from .base import Resource
 from .base import ListResource
+from .base import MethodNotAllowedException
+
+from .responses import Responses
 
 
-class Job(object):
+class Job(Resource):
     STAR_RATING = 'STARRATING'
 
     JOB_TYPES = (STAR_RATING,)
 
+    def update(self, **kwargs):
+        raise MethodNotAllowedException()
+
+    @property
+    def responses(self):
+        return Responses(self.client, self)
+
 
 class Jobs(ListResource):
     REQUIRED_PARAMS = ('num_responders',)
+    _resource_class = Job
+
+    def __init__(self, client, parent):
+        super(Jobs, self).__init__(client)
+        self.batch = parent
 
     @property
     def url(self):
-        return '/'.join((self.client.api_root, 'jobs'))
+        return '{}/{}'.format(self.batch.url, 'jobs')
 
-    def get(self, reference_id):
-        pass
+    def job(self, job_id):
+        return Job(self.client, job_id, self)
+
+    def create(self, num_responders, questions, **kwargs):
+        data = {
+            'num_responders': num_responders,
+            'questions': questions,
+        }
+        data.update(kwargs)
+        return super(Jobs, self).create(
+            data=json.dumps(data),
+            headers={'Content-Type': 'application/json'},
+        )
