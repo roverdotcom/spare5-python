@@ -11,9 +11,9 @@ class Response(Resource):
 class Responses(ListResource):
     _resource_class = Response
 
-    def __init__(self, client, job):
+    def __init__(self, client, parent):
         super(Responses, self).__init__(client)
-        self.job = job
+        self.job = parent
 
     @property
     def url(self):
@@ -26,9 +26,9 @@ class Responses(ListResource):
 class BatchResponses(ListResource):
     _resource_class = Response
 
-    def __init__(self, client, batch):
+    def __init__(self, client, parent):
         super(BatchResponses, self).__init__(client)
-        self.batch = batch
+        self.batch = parent
 
     @property
     def url(self):

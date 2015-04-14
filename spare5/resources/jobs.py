@@ -23,9 +23,9 @@ class Jobs(ListResource):
     REQUIRED_PARAMS = ('num_responders',)
     _resource_class = Job
 
-    def __init__(self, client, batch):
+    def __init__(self, client, parent):
         super(Jobs, self).__init__(client)
-        self.batch = batch
+        self.batch = parent
 
     @property
     def url(self):

@@ -30,7 +30,7 @@ class Resource(object):
 class ListResource(object):
     _result = None
 
-    def __init__(self, client):
+    def __init__(self, client, parent):
         self.client = client
 
     def __iter__(self):
