@@ -46,7 +46,7 @@ class ListResource(object):
     def create(self, headers=None, data=None, **kwargs):
         if data is None:
             data = kwargs
-        return self.client._post(self.url, headers=headers, data=data, **kwargs)
+        return self.client._post(self.url, headers=headers, data=data)
 
     def list(self, force_refresh=False):
         if self._result is None or force_refresh:
