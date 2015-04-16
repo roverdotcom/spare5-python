@@ -5,6 +5,8 @@ from .base import MethodNotAllowedException
 from .jobs import Jobs
 from .responses import BatchResponses
 
+__all__ = ['Batch', 'Batches']
+
 
 class Batch(Resource):
 

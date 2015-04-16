@@ -5,6 +5,8 @@ from .base import MethodNotAllowedException
 
 from .responses import Responses
 
+__all__ = ['Job', 'Jobs']
+
 
 class Job(Resource):
     STAR_RATING = 'STARRATING'
