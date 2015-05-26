@@ -29,6 +29,7 @@ class Resource(object):
 
 class ListResource(object):
     _result = None
+    next_url = None
 
     def __init__(self, client, parent=None):
         self.client = client
@@ -39,19 +40,42 @@ class ListResource(object):
 
         if self._result is None:
             self.list()
-        for result in self._result:
-            yield self._resource_class(
-                self.client, list_resource=self, result=result)
+        while True:
+            for result in self._result:
+                yield self._resource_class(
+                    self.client, list_resource=self, result=result)
+            if self.has_next:
+                self.next_page()
+            else:
+                break
+        # Reset to initial state for repeated iteration support
+        self._result = None
 
     def create(self, headers=None, data=None, **kwargs):
         if data is None:
             data = kwargs
         return self.client._post(self.url, headers=headers, data=data)
 
+    def _load_page(self, url):
+        result = self.client._get(url)
+        self._result = result['result']
+        self.next_url = result.get('next')
+
     def list(self, force_refresh=False):
         if self._result is None or force_refresh:
-            self._result = self.client._get(self.url)['result']
+            self._load_page(self.url)
         return self._result
+
+    def next_page(self):
+        if self.has_next:
+            self._load_page(self.next_url)
+        else:
+            self._result = []
+        return self._result
+
+    @property
+    def has_next(self):
+        return self.next_url is not None
 
 
 class MethodNotAllowedException(StandardError):
