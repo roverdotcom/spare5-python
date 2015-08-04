@@ -18,7 +18,10 @@ class Spare5Client(object):
 
     def _make_request(self, verb, *args, **kwargs):
         kwargs.update({
-            'auth': (self.username, self.token)
+            'auth': (self.username, self.token),
+            'headers': {
+                'content-type': 'application/json',
+            },
         })
         response = requests.request(verb, *args, **kwargs)
         return response.json()
